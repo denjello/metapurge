@@ -1,0 +1,594 @@
+@import (less) "../../../bower_components/angular-busy/angular-busy.css";
+@import (less) "../../../bower_components/fontawesome/css/font-awesome.min.css";
+@import (css) "../../../bower_components/angular-busy/angular-busy.css";
+@import (css) "../../../bower_components/bootstrap/dist/css/bootstrap.css";
+
+
+
+// bootstrap fix for angular
+.nav, .pagination, .carousel, .panel-title a, ul li a {
+  cursor: pointer;
+}
+
+.md-scroll-mask {
+  z-index: 0 !important;
+}
+
+.50 {
+  opacity: 0.5;
+}
+html {
+  position: absolute;
+  width:100%;
+  overflow:hidden;
+  height:110%;
+}
+body {
+  color: #aa9;
+  background-color:#000;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow:hidden!important;
+  height:100%;
+  width:100%;
+}
+
+.mono {
+  font-family: "Courier", monospace;
+}
+
+* {
+  outline-color:transparent!important;
+
+  /* This gets rid of the ugly orange android focus rects*/
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  /*-webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;*/
+}
+// Helper Class
+.disable-hover {
+  pointer-events: none;
+  cursor:default;
+}
+
+
+// RESETS
+
+/* apply a natural box layout model to all elements - thanks Paul Irish */
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+.about p {
+  padding:0 20px;
+}
+.about h2, .about h4 {
+  padding:0 10px;
+  color: #c4e3f3;
+}
+
+img.mainLogo {
+  max-width:100%;
+}
+#tinyLogo {
+  margin: -28px 13px -10px 2000px;
+}
+input#filechooser {
+  position:fixed;
+  width:50%;
+  left:25%;
+  right:25%;
+  bottom:60px;
+  margin: auto;
+}
+
+#flash {
+  position:fixed;
+  height:100%;
+  width:100%;
+  left:0px;
+  right:0px;
+  top:0px;
+  bottom:0px;
+  z-index:10000000000000;
+  background-color: #ffffff;
+}
+.btn-success {
+  background-color:#ffa900!important;
+  border-color:#ff2ea9!important;
+  border-width:3px;
+}
+#load {
+  position:fixed;
+  bottom:0px;
+  top:0px;
+  left:0px;
+  right:0px;
+  margin:0px!important;
+  width:100%;
+  height:100%;
+  opacity:1;
+  z-index:1000;
+  background-color:#000;
+
+  #loader {
+    position:fixed;
+    bottom: 30px;
+    right: 5%;
+    z-index:10000000;
+    h1 {
+      color: #ddf !important;
+      font-size: 4em;
+    }
+
+  }
+  #message { // this is from the loading / working screen
+    position:absolute;
+    width: 80%;
+    height: 20%;
+    left: 10%;
+    right: 10%;
+    top:12%;
+    color:#ddf!important;
+    font-size:1.1em;
+    font-weight:800;
+    text-align:center;
+    span {
+      margin:10px 5px;
+    }
+    span:before {
+      margin-left:4px;
+    }
+  }
+
+  #messageCenter {
+    max-width:95%;
+  }
+
+}
+.openMenu .fa-stack {
+  cursor:pointer;
+}
+
+.mainMenu {
+  position: fixed;
+  width:inherit;
+  height:inherit;
+  text-align: center;
+  bottom: 12px;
+  left: 5%;
+  margin: auto;
+  z-index: 100000;
+  padding-bottom:7px;
+  clear:both;
+  float:left;
+}
+
+.nav {
+  z-index: 100000;
+  bottom: 12px;
+  left: 5%;
+  padding-left: 7px;
+  margin:0 0 0 -20px;
+  text-align:left;
+  position: fixed;
+  .link {
+    width:70px;
+    height:40px;
+    //display: inline-table;
+    text-align: center;
+    cursor: pointer;
+    float:left;
+    clear:both;
+    position:relative;
+  }
+  .link:hover {
+    background:white;
+    color:#000!important;
+  }
+
+  .link:nth-of-type(1){
+    border-radius: 5px 5px 0 0;
+  }
+
+  .link:nth-last-of-type(1){
+    border-radius: 0  0 5px 5px;
+  }
+  .roundedBottom {
+    border-radius: 0  0 5px 5px;
+  }
+  a {
+    padding:10px 5px;
+    width:50px;
+    font-weight: 100;
+    text-decoration:none;
+    color:black;
+    font-weight:800;
+    font-size:0.9em;
+  }
+  a:hover {
+    color:inherit;
+    text-decoration:none;
+  }
+  a:visited {
+    text-decoration:none;
+    color:black;
+  }
+
+}
+.nav.splash {
+  padding:0 0 0px 7px;
+}
+
+
+#container {
+  position:absolute;
+  background-color:#002;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+}
+
+
+#cityChooser {
+  position:fixed;
+  bottom:25%;
+  right:5%;
+  left:5%;
+  margin:auto;
+  .dropdown-menu {
+    margin:-120px 0 0 23px;
+    a:hover {
+      background:#000033;
+      color:#fff;
+    }
+  }
+}
+
+#uploadHolder {
+  width:100%;
+  text-align:center;
+  margin:0 auto;
+  z-index:auto;
+}
+
+canvas#previewer {
+  background:#ccc;
+  min-height:240px;
+  min-width:240px;
+  height:480px;
+  width:480px;
+  max-height:850px;
+  max-width:850px;
+  position:fixed;
+  left:0px;
+  right:0px;
+  margin:auto;
+  top:0px;
+  border-radius:0 0 8px 8px;
+}
+
+.mainButtons {
+  position:fixed;
+  margin-top:1em;
+  text-align:center;
+  bottom: 12px;
+  left:5%;
+  right:5%;
+  width:90%;
+  margin:auto;
+  z-index:100;
+
+  .action {
+    padding:3px;
+    cursor: pointer;
+  }
+  .action:hover {
+    color: #339fff;
+  }
+  .fa-3x {
+    margin-top:-2px;
+  }
+  #messageCenter { // this is on the preview screen
+    width:100%;
+    color: black;
+    z-index:1000000;
+    position:relative;
+    top: -100px;
+    left:0px;
+    right:0px;
+    text-align:center;
+    clear:both;
+  }
+}
+
+#process {
+  position:fixed;
+  bottom:39px;
+  right:5%;
+  width:90px;
+  margin-right:-14px;
+  button {
+    width:60px;
+    height:28px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:clip;
+    span.fa {
+      margin:0 0 0 9px;
+      height:22px;
+      float:right;
+    }
+    img {
+      margin:2px 0 0 2px;
+      height: 21px;
+      width: auto;
+      float:right;
+    }
+    span.buttonLabel {
+      float:right;
+      font-size:1.3em;
+
+    }
+  }
+  button:hover,button:active {
+    width:150px;
+    margin-left:-90px;
+  }
+  button#last {
+    height:70px;
+    -webkit-border-radius:0 0 31px 31px ;
+    -moz-border-radius: 0 0 31px 31px ;
+    border-radius: 0 0 31px 31px ;
+    opacity:0.4;
+    border: 1px solid #ffff00;
+  }
+  .laplace img {
+    height: 30px;
+    margin: -2px 0 0 -4px;
+  }
+  .sharpen img,.blur img {
+    height: 22px;
+    margin-left:0px;
+  }
+  .rotate .fa {
+    margin-top:-20px;
+    padding-right:35px;
+    float:right;
+  }
+}
+#upload {
+  margin:0 0 0 60px;
+}
+#upload:hover,#accept:hover {
+  color:#fff;
+}
+#process:hover {
+  opacity:1;
+}
+.white {
+  color:#fff!important;
+}
+.black {
+  color:#000!important;
+}
+.red {
+  color:#f00!important;
+}
+.rebeccapurple {
+  color: #663399;
+}
+
+.oneblink {
+  -webkit-animation: redshot 3s 2;
+  -moz-animation: redshot 3s 2;
+  -ms-amimation: redshot 3s 2;
+  -o-animation: redshot 3s 2;
+  animation: redshot 3s 2;
+}
+.quickblink {
+  -webkit-animation: redshot 0.5s 1;
+  -moz-animation: redshot 0.5s 1;
+  -ms-amimation: redshot 0.5s 1;
+  -o-animation: redshot 0.5s 1;
+  animation: redshot 0.5s 1;
+}
+.blinky {
+  -webkit-animation: redshot 5s infinite;
+  -moz-animation: redshot 5s infinite;
+  -ms-amimation: redshot 5s infinite;
+  -o-animation: redshot 5s infinite;
+  animation: redshot 5s infinite;
+}
+
+@-webkit-keyframes redshot {
+  0% { color: inherit; }
+  20%   { color: #c33; }
+  50%  { color: #f00; }
+  100% { color: inherit; }
+}
+@-moz-keyframes redshot {
+  0% { color: inherit; }
+  20%   { color: #c33; }
+  50%  { color: #f00; }
+  100% { color: inherit; }
+}
+@-ms-keyframes redshot {
+  0% { color: inherit; }
+  20%   { color: #c33; }
+  50%  { color: #f00; }
+  100% { color: inherit; }
+}
+@-o-keyframes redshot {
+  0% { color: inherit; }
+  20%   { color: #c33; }
+  50%  { color: #f00; }
+  100% { color: inherit; }
+}
+@keyframes redshot {
+  0% { color: inherit; }
+  20%   { color: #c33; }
+  50%  { color: #f00; }
+  100% { color: inherit; }
+}
+
+// ///////////////////////////////////////
+//
+//        goldenDouble
+//
+// //////////////////////////////////////
+#goldenDouble {
+  position:absolute;
+  left:10px;
+  right:10px;
+  top:50px;
+  bottom:115px;
+  width:1900px;
+  height:850px;
+  background:#666;
+}
+
+canvas#goldenDouble2 {
+  position:absolute;
+  left:10px;
+  right:10px;
+  top:50px;
+  width:1900px;
+  height:850px;
+  background:#000;
+  margin:auto;
+}
+
+// ///////////////////////////////////////
+//
+//        teamStuff
+//
+// //////////////////////////////////////
+
+//
+/*
+.disable-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+*/
+// ///////////////////////////////// TEAMVIEW
+
+div#teamPics {
+  position:fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  height:100%;
+  overflow-y:auto;
+  .pic.n {
+    float:left;
+    width:100px;
+    height:100px;
+    clear:left;
+    opacity:0.5;
+  }
+  .pic.x {
+    float:right;
+    width:100px;
+    height:100px;
+    clear:right;
+    opacity:0.5;
+  }
+}
+#teamPics img {
+  width:100px;
+  height:100px;
+}
+.pic:hover {
+  opacity: 1;
+}
+
+#leftTeam .pic:nth-of-type(1),#rightTeam .pic:nth-of-type(1){
+  opacity:1;
+}
+#teams {
+  text-align:center;
+}
+
+div#teamPicsOverview,#allPics {
+  position:fixed;
+  top: 55%;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  overflow-x:auto;
+  text-align:center;
+  background:rgba(255,255,255,0.4);
+  margin:auto;
+  z-index:100000;
+  .pic {
+    float:left
+  }
+}
+
+.teamImageHolder {
+  width:100%;
+  position:absolute;
+  top:0px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+}
+
+
+img.teamPics.n {
+  left:0px
+}
+img.teamPics.x {
+  right:0px
+}
+
+img.thumb {
+  width:100px;
+  height:100px;
+}
+
+.selectedForTeam {
+  opacity:1;
+  outline:2px solid red;
+}
+
+#allPics {
+  z-index:100000;
+  top: 0%;
+ .pics {
+   float:left;
+ }
+ img {
+   height: 50px;
+   width: 50px;
+   opacity:0.5;
+   border:1px solid transparent;
+ }
+  img:hover {
+    opacity:0.7;
+  }
+  #leftTeam {
+    float:left;
+  }
+  .selectedForTeam{
+    opacity:1;
+    border:1px solid darkred;
+
+  }
+}
+

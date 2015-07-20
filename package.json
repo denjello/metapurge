@@ -1,0 +1,32 @@
+{
+  "name": "antimeta-sideloader",
+  "version": "0.0.1",
+  "description": "A standalone Metadata scrubber and Picture App.",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "jade": "~1.3.0"
+  },
+  "devDependencies": {
+    "bower": "^1.3.9",
+    "browser-sync": "^2.6.4",
+    "chai": "^2.2.0",
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
+    "gulp-jquery": "*",
+    "gulp-imagemin": "^2.3.0",
+    "imagemin-pngquant": "*",
+    "gulp-header": "^1.2.2",
+    "gulp-jade": "^1.0.0",
+    "gulp-less": "^3.0.3",
+    "gulp-minify-css": "^1.1.0",
+    "gulp-modernizr": "^1.0.0-alpha",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-watch": "^4.2.4",
+    "mocha": "^2.2.4",
+    "sinon": "^1.14.1"
+  }
+}

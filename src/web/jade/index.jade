@@ -1,0 +1,116 @@
+doctype html
+html(ng-app='antimeta', lang='en')
+	head
+		title METAPURGE
+		base(href='/')
+		meta(charset='utf8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+		link(rel='stylesheet', href='/css/antimeta.css')
+
+		script(src='/js/jquery.custom.js')
+		style(type='text/css').
+			.ng-cloak {
+				display: none !important;
+			}
+
+	body.ng-cloak(spellcheck='false' ng-cloak)
+
+		div#load()
+			div#message()
+				img.mainLogo(src='/images/metapurge.png')
+
+				p(style="padding-left:10px")
+					br
+					span#camera.btn.btn-success()
+						span.fa-stack.fa-2x
+							i.fa.fa-square.fa-stack-2x
+							i.fa.fa-camera.fa-stack-1x.text-success
+					span &nbsp;
+					span#nativeFile.btn.btn-success()
+						span.fa-stack.fa-2x
+							i.fa.fa-square.fa-stack-2x
+							i.fa.fa-folder-open.fa-stack-1x.text-success
+					span &nbsp;
+						#loadMessage(style="color:white") {{messageCenter.message}}
+					p() Purge Metadata from Your Images
+					p() In Your Browser Without a Server.
+
+
+			div#loader.spinner.hidden
+				h1.fa.fa-spinner.fa-spin.fa-4x.text-success
+					div.mainButtons.pull-left
+
+			div.mainButtons.pull-left
+				input#filechooser.step1( value="FILE" type="file" accept="image/*" target="#/" )
+
+		div#uploadHolder()
+			canvas#previewer()
+		div.mainButtons.pull-left
+			h2
+				span#messageCenter.label.label-lg(ng-class='messageCenter.class') {{messageCenter.message}}
+
+			#filechoice.step1.action.file.pull-right
+				span.fa-stack.fa-2x
+					i.fa.fa-square.fa-stack-2x
+					i.fa.fa-folder-open.fa-stack-1x.text-info
+			#camchoice.step1.action.cam.pull-right
+				span.fa-stack.fa-2x
+					i.fa.fa-square.fa-stack-2x
+					i.fa.fa-camera.fa-stack-1x.text-info
+			#accept.step1.action.pull-right
+				span.fa-stack.fa-3x
+					i.fa.fa-square.fa-stack-2x
+					i.fa.fa-bullseye.fa-stack-1x.text-success
+			#settings.step2.action.hidden.pull-right
+				span.trigger.fa-stack.fa-2x.center-block(style='z-index:2')
+					i.fa.fa-square.fa-stack-2x
+					i.fa.fa-sliders.fa-stack-1x.text-warning
+				div#process.step3.hidden.pull-left(style='z-index:1')
+					button.btn.btn-xs.btn-warning.filter.BW()
+						img.pull-right(src='/images/bw.png')
+						span.buttonLabel.pull-left Desaturate
+					button.btn.btn-xs.btn-warning.filter.brighten()
+						img.pull-right(src='/images/lighter.png')
+						span.buttonLabel.pull-left Lighten
+					button.btn.btn-xs.btn-warning.filter.darken()
+						img.pull-right(src='/images/darker.png')
+						span.buttonLabel.pull-left Darken
+					button.btn.btn-xs.btn-warning.filter.contrast()
+						img.pull-right(src='/images/contrast.png')
+						span.buttonLabel.pull-left Contrast
+					button.btn.btn-xs.btn-warning.filter.sharpen()
+						img.pull-right(src='/images/sharpen.png')
+						span.buttonLabel.pull-left Sharpen
+					button.btn.btn-xs.btn-warning.filter.blur()
+						img.pull-right(src='/images/blur.png')
+						span.buttonLabel.pull-left Blur
+					button.btn.btn-xs.btn-warning.filter.laplace()
+						img.pull-right(src='/images/unsharp.png')
+						span.buttonLabel.pull-left Unsharpen
+					button#counterclockwise.btn.btn-xs.btn-warning.rotate.Left()
+						span &nbsp;&nbsp;
+						span.pull-right.fa.fa-rotate-left.fa-2x.fa-fw
+						span.buttonLabel.pull-left Turn Left
+					button#clockwise.btn.btn-xs.btn-warning.rotate.Right()
+						span &nbsp;&nbsp;
+						span.pull-right.fa.fa-rotate-right.fa-2x.fa-fw
+						span.buttonLabel.pull-left Turn Right
+
+					button#last.btn.btn-xs.btn-warning.disabled
+			#cancel.step2.action.hidden.pull-right
+				span.fa-stack.fa-2x
+					i.fa.fa-square.fa-stack-2x
+					i.fa.fa-times-circle.fa-stack-1x.text-danger
+			#upload.step2.action.hidden.pull-left
+				span.fa-stack.fa-3x
+					i.fa.fa-square.fa-stack-2x.text-success
+					i.fa.fa-download.fa-stack-1x
+			#tinyLogo.pull-right
+				a(href="https://github.com")
+					img(src='/images/metapurge_small.png')
+		video(id="video", autoplay, style="display:none" width="1920" height="1080")
+
+		scripts
+			script(src='/js/antimeta-dependencies.min.js')
+			script(src='/js/antimeta-frontend.js')

@@ -1,0 +1,35 @@
+{
+  "name": "antimeta-sideloader",
+  "version": "0.0.2",
+  "authors": [
+    "Anton Koch <anton.koch@gmail.com>",
+    "Denjell <denjell@das-gaengeviertel.info>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.3",
+    "jquery": "~2.1",
+    "fontawesome": "~4.3.0",
+    "angular-route": "~1.4.3",
+    "angular-bootstrap": "~0.11.0",
+    "bootstrap": "~3.3.5",
+    "angular-animate": "~1.4.3",
+    "async": "~0.9.0",
+    "requirejs": "~2.1.15",
+    "angular-busy": "~4.1.0",
+    "angular-touch": "~1.4.3",
+    "angular-aria": "~1.4.3"
+  },
+  "resolutions": {
+    "angular-animate": "~1.4.3",
+    "angular": "1.4.3"
+  }
+}
