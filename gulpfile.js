@@ -40,8 +40,7 @@ gulp.task('modernizr', function () {
             "extra": {
                 "shiv": true,
                 "load": false,
-                "cssclasses": false,
-
+                "cssclasses": false
             },
             "uglify": true,
             "tests": ['fontface', 'localstorage', 'canvas', 'hashchange'],
@@ -80,7 +79,8 @@ gulp.task('js-deps', ['modernizr'], function () {
         'bower_components/angular-touch/angular-touch.js',
         'bower_components/async/lib/async.js',
         'bower_components/angular-bootstrap/ui-bootstrap.min.js',
-        'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
+        'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+        'bower_components/exifreader/js/ExifReader.js'
     ])
         .pipe(concat('antimeta-dependencies.min.js'))
         .pipe(header(banner, {pkg: pkg}))
@@ -166,11 +166,11 @@ gulp.task('web', [
 
 // Static Server + watching scss/html files
 gulp.task('serve', function() {
-    /*
+
      browserSync.init({
      server: "./dist/web/"
      });
-     */
+
 });
 
 

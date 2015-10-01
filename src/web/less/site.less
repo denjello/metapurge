@@ -3,8 +3,33 @@
 @import (css) "../../../bower_components/angular-busy/angular-busy.css";
 @import (css) "../../../bower_components/bootstrap/dist/css/bootstrap.css";
 
+li {
+  color:white!important;
+  position:absolute;
+  top:5px;
+  left:5px;
+  z-index:10000000;
+}
+#metaData{
+  position:fixed;
+  top:20px;
+  right:20px;
+  bottom:200px;
+  width:300px;
+  text-align:left;
+  z-index:1000000;
+  overflow-y: auto;
+  text-shadow: 2px 2px 2px #000;
+#eyeOpen,#eyeShut {
+  cursor: pointer;
+}
+  #textOverlay{
+    color:white;
+    text-align:left;
 
+  }
 
+  }
 // bootstrap fix for angular
 .nav, .pagination, .carousel, .panel-title a, ul li a {
   cursor: pointer;
@@ -78,7 +103,7 @@ img.mainLogo {
   max-width:100%;
 }
 #tinyLogo {
-  margin: -28px 13px -10px 2000px;
+  margin: -28px 37px -10px 2000px;
 }
 input#filechooser {
   position:fixed;
@@ -261,7 +286,7 @@ input#filechooser {
 }
 
 canvas#previewer {
-  background:#ccc;
+  background:rgba(255,255,255,0.04);
   min-height:240px;
   min-width:240px;
   height:480px;

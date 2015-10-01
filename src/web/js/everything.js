@@ -1,4 +1,5 @@
 // TODO: Go through all of these and sort them correctly.
+
 var MainInterface = {
     menu: function (special) {
         "use strict";
@@ -161,10 +162,12 @@ var MainInterface = {
             if (Global.file) {
                 if (Tools.isImage(Global.file.type) === true) {
                     Canvas.fromImage(evnt);
+
                     Tools.activate('filechoice');
                     $(".step1").hide();
                     $(".step3").hide();
                     $('.step2').hide().removeClass('hidden').fadeIn(500);
+
                 } else {
                     //$scope.setMessage('That file is not an image.',-1,'label-error');
                     setTimeout(function () {
@@ -329,7 +332,6 @@ var Tools = {
     },
     exif: function (detect) {
         // must be called after Canvas.fromImage;
-
         var reader = new FileReader();
         reader.onload = function (evnt) {
             try {
@@ -337,15 +339,23 @@ var Tools = {
                 // Parse the Exif tags.
                 exifHere.load(evnt.target.result); // (was evnt as passed from filechooser )
 
-                if (detect === "orientation") {
-                    var orient = exifHere.getTagDescription('Orientation');
-                    return orient;
-                }
-
+                Global.EXIFDATA = exifHere.getAllTags();
+                //console.log(Global.EXIFDATA);
+                var result = new Array;
+                angular.forEach(Global.EXIFDATA, function(val, key) {
+                    // check if the offset is there
+                    if ( val.offset !== false) {
+                        if (val.description.length <= 30) {
+                            result.push(key+": "+val.description+"<br>\n\r");
+                        }
+                    }
+                });
+                console.log(result);
+                $('#metaData #data').html(result);
+                Canvas.transformCoordinate(exifHere.getTagDescription('Orientation'));
                 //var imageDate = exif.getTagDescription('DateTimeOriginal');
                 var EXIFLatitude = exifHere.getTagDescription('GPSLatitude');
                 var EXIFLongitude = exifHere.getTagDescription('GPSLongitude');
-                // var allTags = exif.getAllTags();
                 if (EXIFLatitude !== undefined && EXIFLongitude !== undefined) {
                     Global.EXIFlat = EXIFLatitude;
                     Global.EXIFlong = EXIFLongitude;
@@ -360,7 +370,9 @@ var Tools = {
             }
             catch (error) {
                 // -- turned off for LIVE // console.log(error.message);
-                //// window.setMessage("No Exif Information",2000);
+                console.log("No Exif Information");
+                $('#metaData #data').html("No Exif Information");
+
             }
         };
 
@@ -728,6 +740,8 @@ var Canvas = {
         if ($('.active').hasClass('cam')) {
             Canvas.feed();
             $('canvas').attr('videoLive', "on");
+        } else {
+            Global.ctx.clearRect(0, 0, Global.canvas.width, Global.canvas.height);
         }
     },
     /**
@@ -735,55 +749,42 @@ var Canvas = {
      * Orientation value is from EXIF tag
      */
     transformCoordinate: function (orientation) {
-        var canvas = Global.canvas,
-            ctx = Global.ctx,
-            height = 850,
-            width = 850;
-
-        switch (orientation) {
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-                canvas.width = height;
-                canvas.height = width;
-                break;
-            default:
-                canvas.width = width;
-                canvas.height = height;
-        }
         switch (orientation) {
             case 2:
+            case "top-left":
                 // horizontal flip
                 ctx.save();
                 ctx.translate(width, 0);
                 ctx.scale(-1, 1);
                 break;
             case 3:
+            case "bottom-right":
                 // 180 rotate left
-                ctx.save();
-                ctx.translate(width, height);
-                ctx.rotate(Math.PI);
+                Canvas.rotate(180);
                 break;
             case 4:
+            case "bottom-left":
                 // vertical flip
                 ctx.save();
                 ctx.translate(0, height);
                 ctx.scale(1, -1);
                 break;
             case 5:
+            case "left-top":
                 // vertical flip + 90 rotate right
                 ctx.save();
                 ctx.rotate(0.5 * Math.PI);
                 ctx.scale(1, -1);
                 break;
             case 6:
+            case "right-top":
+                Canvas.rotate(90);
                 // 90 rotate right
-                ctx.save();
-                ctx.rotate(0.5 * Math.PI);
-                ctx.translate(0, -height);
+
                 break;
             case 7:
+            case "right-bottom":
+
                 // horizontal flip + 90 rotate right
                 ctx.save();
                 ctx.rotate(0.5 * Math.PI);
@@ -792,10 +793,9 @@ var Canvas = {
 
                 break;
             case 8:
+            case "left-bottom":
                 // 90 rotate left
-                ctx.save();
-                ctx.rotate(-0.5 * Math.PI);
-                ctx.translate(-width, 0);
+                Canvas.rotate(-90);
                 break;
             default:
                 break;
@@ -868,8 +868,10 @@ var Canvas = {
             //window.setMessage("Analyzing Image",-1);
             Global.imageObj.onload = function () {
                 Tools.exif();
+
                 // this crops our image into a square
                 // will need to functionalize so that the image can be moved / cropped
+                /*
                 if (this.height > this.width) {
                     Global.sourceX = 0;
                     Global.sourceY = (this.height - this.width) / 2;
@@ -881,13 +883,39 @@ var Canvas = {
                     Global.sourceWidth = this.height;
                     Global.sourceHeight = this.height;
                 }
+                */
+
+                // by popular demand, the uploaded image should keep its ratio
+
                 Global.canvas.width = 850;
                 Global.canvas.height = 850;
-                Global.destWidth = Global.canvas.width;
-                Global.destHeight = Global.canvas.height;
+                Global.sourceX = 0;
+                Global.sourceY = 0;
+                Global.sourceWidth = this.width;
+                Global.sourceHeight = this.height;
+                if (this.height > this.width) {
+                    Global.heightFactor=1;
+                    Global.widthFactor=this.width / this.height;
+                    Global.widthOffset=(Global.canvas.width-(this.width))/2;
+                    Global.heightOffset=0;
+                } else if (this.height < this.width)  {
+                    Global.heightOffset=(Global.canvas.height-this.height)/2;
+                    Global.widthOffset=0;
+                    Global.heightFactor=this.height / this.width;
+                    Global.widthFactor=1;
+                } else { // already square
+                    Global.heightOffset=0;
+                    Global.widthOffset=0;
+                    Global.heightFactor=1;
+                    Global.widthFactor=1;
+                }
 
+                Global.destWidth = Global.canvas.width*Global.widthFactor;
+                Global.destHeight = Global.canvas.height*Global.heightFactor;
+                Global.widthOffset=(Global.canvas.width-Global.destWidth)/2;
+                Global.heightOffset=(Global.canvas.height-Global.destHeight)/2;
                 //Canvas.drawImageIOSFix( Global.ctx, this, Global.sourceX, Global.sourceY, Global.sourceWidth, Global.sourceHeight, Global.destX, Global.destY, Global.destWidth, Global.destHeight);
-                Global.ctx.drawImage(this, Global.sourceX, Global.sourceY, Global.sourceWidth, Global.sourceHeight, Global.destX, Global.destY, Global.destWidth, Global.destHeight);
+                Global.ctx.drawImage(this, Global.sourceX, Global.sourceY, Global.sourceWidth, Global.sourceHeight, Global.destX+++Global.widthOffset, Global.destY+++Global.heightOffset, Global.destWidth, Global.destHeight);
 
 
 
@@ -1065,7 +1093,10 @@ var Canvas = {
     },
     save: function () {
         Tools.loading(true);
-        var image = Global.canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        // for download purposes we've moved this to the jade file
+        //var image = Global.canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        var image = Global.canvas.toDataURL("image/png");
+        window.location.download= "test.png";
         window.location.href = image;
         image=null;
     }

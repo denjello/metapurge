@@ -14,7 +14,7 @@ html(ng-app='antimeta', lang='en')
 				display: none !important;
 			}
 
-	body.ng-cloak(spellcheck='false' ng-cloak)
+	body.ng-cloak(spellcheck='false' ng-cloak ng-controller="Upload")
 
 		div#load()
 			div#message()
@@ -44,6 +44,26 @@ html(ng-app='antimeta', lang='en')
 			div.mainButtons.pull-left
 				input#filechooser.step1( value="FILE" type="file" accept="image/*" target="#/" )
 
+		div#metaData(ng-show='metaShow')
+			#textOverlay
+				.btn.btn-default(ng-click="showip=!showip;showmetadata=false") SHOW ME MY IP ADDRESS
+				br
+				.fa.fa-alert.pull-left(ng-show="showip")
+				small#littleinfo(ng-show="showip") Clicking below will make a request to an outside server.
+				br
+				#internetIP.btn.btn-default.btn-sm(ng-show="showip" ng-click="getMyIP()" ng-disabled="intranetIPfound") MY IP ADDRESS
+					p(ng-show="IPv4") LAN(IPv4): {{IPv4}}
+					p(ng-show="IPv6") LAN(IPv6): {{IPv6}}
+					p(ng-show="IPvPUBLIC") PublicIP: {{IPvPUBLIC}}
+				br
+				//#publicIP.btn.btn-default.btn-sm(ng-if="showip" ng-click="getPublicIP()" ng-disabled="geoIP") PUBLIC IP
+					p(ng-if="geoIP") IP: {{geoIP.ip}}
+					p(ng-if="geoIP") City: {{geoIP.city}}
+			br
+			.btn.btn-default(ng-click="showmetadata=!showmetadata;showip=false") SHOW ME THE METADATA
+			span(ng-show="showmetadata")
+				#data
+
 		div#uploadHolder()
 			canvas#previewer()
 		div.mainButtons.pull-left
@@ -58,7 +78,11 @@ html(ng-app='antimeta', lang='en')
 				span.fa-stack.fa-2x
 					i.fa.fa-square.fa-stack-2x
 					i.fa.fa-camera.fa-stack-1x.text-info
-			#accept.step1.action.pull-right
+			#information.step1.action.information.pull-right
+				span.fa-stack.fa-2x
+					i.fa.fa-square.fa-stack-2x
+					i.fa.fa-info.fa-stack-1x.text-warning
+			#accept.step1.action.pull-left
 				span.fa-stack.fa-3x
 					i.fa.fa-square.fa-stack-2x
 					i.fa.fa-bullseye.fa-stack-1x.text-success
@@ -98,11 +122,26 @@ html(ng-app='antimeta', lang='en')
 						span.buttonLabel.pull-left Turn Right
 
 					button#last.btn.btn-xs.btn-warning.disabled
+
+
+			#meta.pull-right
+				#eyeOpen.step2.action.pull-right(ng-show='metaShow' ng-click='metaShow = !metaShow')
+					span.fa-stack.fa-2x
+						i.fa.fa-square.fa-stack-2x
+						i.fa.fa-eye.fa-stack-1x.text-info
+				#eyeShut.step2.action.pull-right.info(ng-hide='metaShow' ng-click='metaShow = !metaShow')
+					span.fa-stack.fa-2x
+						i.fa.fa-square.fa-stack-2x
+						i.fa.fa-eye-slash.fa-stack-1x.text-info
+
 			#cancel.step2.action.hidden.pull-right
 				span.fa-stack.fa-2x
 					i.fa.fa-square.fa-stack-2x
 					i.fa.fa-times-circle.fa-stack-1x.text-danger
-			#upload.step2.action.hidden.pull-left
+
+			a#uploader.step2.action.hidden.pull-left(href="#" onclick="$('a#uploader').attr('href', Global.canvas.toDataURL());" download="metapurged.png" )
+
+
 				span.fa-stack.fa-3x
 					i.fa.fa-square.fa-stack-2x.text-success
 					i.fa.fa-download.fa-stack-1x
@@ -110,7 +149,7 @@ html(ng-app='antimeta', lang='en')
 				a(href="https://github.com")
 					img(src='/images/metapurge_small.png')
 		video(id="video", autoplay, style="display:none" width="1920" height="1080")
-
+		iframe(id="iframe" sandbox="allow-same-origin" style="display:none")
 		scripts
 			script(src='/js/antimeta-dependencies.min.js')
 			script(src='/js/antimeta-frontend.js')
