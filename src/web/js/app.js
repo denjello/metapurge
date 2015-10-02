@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('antimeta', [
+    angular.module('metapurge', [
         'ui.bootstrap',
         'ngRoute',
         'ngAnimate',

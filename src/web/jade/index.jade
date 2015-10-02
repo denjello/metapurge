@@ -1,14 +1,14 @@
 doctype html
-html(ng-app='antimeta', lang='en')
+html(ng-app='metapurge', lang='en')
 	head
 		title METAPURGE
 		base(href='/')
 		meta(charset='utf8')
 		meta(http-equiv='X-UA-Compatible', content='IE=edge')
 		meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
-		link(rel='stylesheet', href='/css/antimeta.css')
+		link(rel='stylesheet', href='./css/antimeta.css')
 
-		script(src='/js/jquery.custom.js')
+		script(src='./js/jquery.custom.js')
 		style(type='text/css').
 			.ng-cloak {
 				display: none !important;
@@ -146,10 +146,10 @@ html(ng-app='antimeta', lang='en')
 					i.fa.fa-square.fa-stack-2x.text-success
 					i.fa.fa-download.fa-stack-1x
 			#tinyLogo.pull-right
-				a(href="https://github.com")
-					img(src='/images/metapurge_small.png')
+				a(href="https://github.com/denjello/metapurge")
+					img(src='./images/metapurge_small.png')
 		video(id="video", autoplay, style="display:none" width="1920" height="1080")
 		iframe(id="iframe" sandbox="allow-same-origin" style="display:none")
 		scripts
-			script(src='/js/antimeta-dependencies.min.js')
-			script(src='/js/antimeta-frontend.js')
+			script(src='./js/antimeta-dependencies.min.js')
+			script(src='./js/antimeta-frontend.js')
