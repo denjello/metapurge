@@ -1,4 +1,4 @@
-# ANTIMETA
+# METAPURGE
 
 ## ABOUT
 
@@ -26,3 +26,6 @@ npm install
 bower install
 gulp
 ```
+
+AND DON'T FORGET TO
+`git subtree push --prefix dist/web origin gh-pages`
