@@ -19,10 +19,10 @@
 
             $locationProvider.html5Mode(true);
 
-            $routeProvider.when('/', {
+            $routeProvider.when('/metapurge/', {
                 templateUrl: '/index.html',
                 controller: 'Upload'});
-            $routeProvider.otherwise({redirectTo: '/'});
+            $routeProvider.otherwise({redirectTo: '/metapurge/'});
 
         }])
         .run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
